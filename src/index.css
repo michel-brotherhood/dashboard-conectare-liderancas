@@ -1,0 +1,153 @@
+@import "tailwindcss";
+
+@theme {
+  --color-primary: #FE8B01;
+  --color-bg-main: #0b1d3a;
+  --color-bg-card: #0f2848;
+  --color-bg-alt: #132f50;
+}
+
+/* ── Reset ──────────────────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
+
+body {
+  background-color: #0b1d3a;
+  color: #fff;
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  font-size: 14px;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  padding-left: env(safe-area-inset-left);
+  padding-right: env(safe-area-inset-right);
+}
+
+#root { width: 100%; min-height: 100vh; }
+
+/* ── Scrollbar ───────────────────────────────────────────────────── */
+::-webkit-scrollbar { width: 4px; height: 4px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.12); border-radius: 99px; }
+::-webkit-scrollbar-thumb:hover { background: rgba(255,255,255,0.22); }
+
+/* ── Typography ─────────────────────────────────────────────────── */
+.num { font-variant-numeric: tabular-nums; font-feature-settings: 'tnum'; }
+
+/* ── Focus ring ─────────────────────────────────────────────────── */
+:focus { outline: none; }
+:focus-visible {
+  outline: 2px solid rgba(254,139,1,0.7);
+  outline-offset: 2px;
+  border-radius: 6px;
+}
+
+/* ── Metric cards ────────────────────────────────────────────────── */
+.metric-card {
+  transition: transform 0.2s ease, box-shadow 0.2s ease, filter 0.2s ease;
+  will-change: transform;
+}
+.metric-card:hover {
+  transform: translateY(-2px);
+  filter: brightness(1.06);
+}
+
+/* ── Table rows ──────────────────────────────────────────────────── */
+.table-row { transition: background-color 0.12s ease; }
+.table-row:hover { background-color: #112a44 !important; }
+
+/* ── Group tabs ──────────────────────────────────────────────────── */
+.group-tab {
+  transition: background-color 0.15s ease, color 0.15s ease, box-shadow 0.15s ease, border-color 0.15s ease;
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* Tab sizing: fill width on mobile, natural width on desktop */
+.tab-item { flex: 1 1 0; min-width: 72px; }
+@media (min-width: 640px) { .tab-item { flex: 0 0 auto; min-width: 160px; } }
+
+/* Dashboard section layout */
+.dash-layout {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(16px, 3vw, 24px);
+}
+
+/* ── Ghost button ────────────────────────────────────────────────── */
+.btn-ghost {
+  transition: background-color 0.12s ease, border-color 0.12s ease, color 0.12s ease;
+  -webkit-tap-highlight-color: transparent;
+}
+.btn-ghost:hover {
+  background-color: rgba(255,255,255,0.06) !important;
+  border-color: rgba(255,255,255,0.18) !important;
+  color: rgba(255,255,255,0.7) !important;
+}
+
+/* ── Inputs ──────────────────────────────────────────────────────── */
+.field {
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+  -webkit-tap-highlight-color: transparent;
+}
+.field::placeholder { color: rgba(255,255,255,0.28); }
+.field:focus {
+  outline: none;
+  border-color: rgba(254,139,1,0.7) !important;
+  box-shadow: 0 0 0 3px rgba(254,139,1,0.12) !important;
+}
+
+/* ── Export button ───────────────────────────────────────────────── */
+.btn-export {
+  transition: background-color 0.12s ease, opacity 0.12s ease;
+  -webkit-tap-highlight-color: transparent;
+}
+.btn-export:not(:disabled):hover { background-color: rgba(254,139,1,0.18) !important; }
+.btn-export:active { opacity: 0.8; }
+
+/* ── Import button ───────────────────────────────────────────────── */
+.btn-import {
+  transition: background-color 0.12s ease, opacity 0.12s ease;
+  -webkit-tap-highlight-color: transparent;
+}
+.btn-import:hover { background-color: rgba(255,255,255,0.08) !important; }
+.btn-import:active { opacity: 0.8; }
+
+/* ── Animations ─────────────────────────────────────────────────── */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(10px); }
+  to   { opacity: 1; transform: translateY(0);    }
+}
+.fade-up { animation: fadeUp 0.24s ease both; }
+
+/* ── Chip / tab rows ─────────────────────────────────────────────── */
+.chips-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  overflow-x: auto;
+  overflow-y: hidden;
+  scrollbar-width: none;
+  -webkit-overflow-scrolling: touch;
+  scroll-snap-type: x proximity;
+}
+.chips-row::-webkit-scrollbar { display: none; }
+.chips-row > * { scroll-snap-align: start; flex-shrink: 0; }
+
+/* ── Touch targets ───────────────────────────────────────────────── */
+.touch-target {
+  min-height: 44px;
+  min-width: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* ── Filter grid: 2-col mobile → 3-col desktop ───────────────────── */
+@media (min-width: 640px) {
+  .filter-grid { grid-template-columns: 2fr 1fr 1fr !important; }
+  .filter-nome { grid-column: 1 / 2 !important; }
+}
+
+/* ── CustomSelect height to match filter inputs ──────────────────── */
+.filter-grid .field { height: 46px; }
